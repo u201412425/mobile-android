@@ -17,12 +17,14 @@ import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.fragments.MyPetsFragment;
 import pe.edu.upc.doggystyle.fragments.PetDetailFragment;
 import pe.edu.upc.doggystyle.fragments.RehomeFragment;
+import pe.edu.upc.doggystyle.fragments.ShelterFragment;
 
 public class MyPets extends AppCompatActivity
         implements AdoptFragment.OnFragmentInteractionListener,
         MyPetsFragment.OnFragmentInteractionListener,
         PetDetailFragment.OnDetailFragmentInteractionListener,
-        RehomeFragment.OnRehomeFragmentInteractionListener
+        RehomeFragment.OnRehomeFragmentInteractionListener,
+        ShelterFragment.OnShelterFragmentInteractionListener
         {
 
     Fragment fragment;
@@ -40,7 +42,7 @@ public class MyPets extends AppCompatActivity
                     fragment = new MyPetsFragment();
                     break;
                 case R.id.navigation_notifications:
-                    fragment = new AdoptFragment();
+                    fragment = new ShelterFragment();
                     break;
             }
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -96,4 +98,9 @@ public class MyPets extends AppCompatActivity
     public void onRehomeFragmentInteraction() {
         popBack();
     }
-}
+
+            @Override
+            public void onShelterFragmentInteraction(int index) {
+
+            }
+        }
