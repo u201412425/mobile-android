@@ -28,16 +28,17 @@ import android.widget.Toast;
 
 import okhttp3.Response;
 import pe.edu.upc.doggystyle.R;
+import pe.edu.upc.doggystyle.models.Session;
 import pe.edu.upc.doggystyle.network.LoginApi;
+import pe.edu.upc.doggystyle.utilities.SharedPreferencesManager;
 
 public class LoginActivity extends AppCompatActivity {
     TextView registerBtnText;
     Button loginBtn;
     TextInputEditText userTextInputEditText;
     TextInputEditText passwordTextInputEditText;
-
-
-    //    SharedPreferencesManager spm;
+    Session session;   
+    SharedPreferencesManager spm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,33 +101,22 @@ public class LoginActivity extends AppCompatActivity {
                 .setTag("tesst")
                 .setPriority(Priority.HIGH.MEDIUM)
                 .build()
-                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onResponse(Response response) {
-                        String a = response.header("Token");
-                        Context context = getApplicationContext();
-                        Toast toast = Toast.makeText(context, a, Toast.LENGTH_SHORT);
-                        toast.show();
-//                            startActivity(new Intent(LoginActivity.this,MyPets.class));
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject result = response.getJSONObject("Result");
 
+                        }catch (JSONException e){
+
+                        }
                     }
-
                     @Override
                     public void onError(ANError anError) {
-
+                        Log.d("s","fail");
+                        Log.d("a",anError.getMessage());
                     }
                 });
-//                .getAsJSONObject(new JSONObjectRequestListener() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        startActivity(new Intent(LoginActivity.this,MyPets.class));
-//                    }
-//
-//                    @Override
-//                    public void onError(ANError anError) {
-//
-//                    }
-//                });
 
 
     }
