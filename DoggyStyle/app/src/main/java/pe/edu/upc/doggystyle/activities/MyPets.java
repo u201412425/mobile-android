@@ -24,7 +24,7 @@ public class MyPets extends AppCompatActivity
         MyPetsFragment.OnFragmentInteractionListener,
         PetDetailFragment.OnDetailFragmentInteractionListener,
         RehomeFragment.OnRehomeFragmentInteractionListener,
-        ShelterFragment.OnShelterFragmentInteractionListener
+        ShelterFragment.OnFragmentInteractionListener
         {
 
     Fragment fragment;

@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), MyPets.class));
                 if(connection){
                     login();
                 }
@@ -94,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login()
     {
-
         AndroidNetworking.get(LoginApi.LOGIN_SOURCES)
                 .addHeaders("User",userTextInputEditText.getText().toString())
                 .addHeaders("Password",passwordTextInputEditText.getText().toString())

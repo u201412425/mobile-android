@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.models.Shelter;
 
 /**
  * Created by p6 on 18/05/2017.
@@ -13,7 +14,7 @@ public class DataService {
     static DataService dataService;
     private List<PetEntry> adoptEntries;
     private List<PetEntry> myPetsEntries;
-    private List<PetEntry> shelterEntries;
+    private List<Shelter> shelterEntries;
     DataService(){
         adoptEntries = new ArrayList<>();
         myPetsEntries = new ArrayList<>();
@@ -22,8 +23,8 @@ public class DataService {
         adoptEntries.add(new PetEntry("Yorkshire",1995,12,10,"Rabia"));
         myPetsEntries.add(new PetEntry("San Bernardo",1990,11,0,"Rabia"));
         myPetsEntries.add(new PetEntry("Bulldog",1990,12,10,"Tetanos"));
-        shelterEntries.add(new PetEntry("San Jacinto",1990,11,0,"200 mascotas"));
-        shelterEntries.add(new PetEntry("Cieneguilla",1990,12,10,"100 mascotas"));
+        shelterEntries.add(new Shelter("San Jacinto", "Lima", "Surco"));
+        shelterEntries.add(new Shelter("Santa Marta", "Lima", "San Juan de Lurigancho"));
     }
     public static DataService getInstance(){
         if(dataService==null) dataService = new DataService();
@@ -38,7 +39,7 @@ public class DataService {
         return myPetsEntries;
     }
 
-    public List<PetEntry> getShelterEntries() {
+    public List<Shelter> getShelterEntries() {
         return shelterEntries;
     }
 }
