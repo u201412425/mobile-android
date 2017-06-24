@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     TextInputEditText userTextInputEditText;
     TextInputEditText passwordTextInputEditText;
-    Session session;   
+    Session session;
     SharedPreferencesManager spm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
