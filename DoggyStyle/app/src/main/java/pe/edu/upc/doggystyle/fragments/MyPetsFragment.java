@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -78,7 +79,7 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_adopt, container, false);
+        return inflater.inflate(R.layout.fragment_my_pets, container, false);
     }
 
     @Override
@@ -102,9 +103,21 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adoptAdapter = new AdoptAdapter(view.getContext(), DataService.getInstance().getMyPetsEntries(), this);
-        recyclerView = (RecyclerView)view.findViewById(R.id.adopt_recycler_view);
+        recyclerView = (RecyclerView)view.findViewById(R.id.myPetsRecyclerView);
         recyclerView.setAdapter(adoptAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addPetFloatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onButtonPressed();
+            }
+        });
+    }
+    public void onButtonPressed() {
+        if (mListener != null) {
+            mListener.onMyPetsFragmentInteraction(1);
+        }
     }
 
     @Override
