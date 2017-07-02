@@ -57,6 +57,7 @@ public class DataService {
     }
 
     public PetEntry getCurrentPet() {
+
         return currentPet;
     }
 

@@ -9,8 +9,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.androidnetworking.widget.ANImageView;
+
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
+import pe.edu.upc.doggystyle.models.PetEntry;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +26,15 @@ import pe.edu.upc.doggystyle.R;
  * create an instance of this fragment.
  */
 public class PetDetailFragment extends Fragment {
+    ANImageView petImageView;
+    TextView petNameTextView;
+    TextView petDescriptionTextView;
+    TextView petTypeTextView;
+    TextView petStateTextView;
+    TextView petAgeViewTextView;
+    TextView petSpecialFeaturesTextView;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -71,8 +85,33 @@ public class PetDetailFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        petImageView = (ANImageView) view.findViewById(R.id.petImageView);
+        petNameTextView = (TextView) view.findViewById(R.id.petNameTextView);
+        petDescriptionTextView=(TextView) view.findViewById(R.id.petDescriptionTextView);
+        petTypeTextView = (TextView) view.findViewById(R.id.petTypeTextView);
+        petSpecialFeaturesTextView = (TextView) view.findViewById(R.id.petSpecialFeaturesTextView);
+        petStateTextView = (TextView) view.findViewById(R.id.petStateTextView);
+        petAgeViewTextView =(TextView) view.findViewById(R.id.petAgeTextView);
+
+        PetEntry currentPet= DoggyStyleApp.getInstance().getCurrentPet();
+        petImageView.setDefaultImageResId(R.drawable.ic_pets_black_24dp);
+        petImageView.setErrorImageResId(R.drawable.ic_pets_black_24dp);
+        petImageView.setImageUrl(currentPet.getImagenUrl());
+        petNameTextView.setText(currentPet.getName());
+        petDescriptionTextView.setText(currentPet.getDescription());
+        petTypeTextView.setText(currentPet.getType());
+        petSpecialFeaturesTextView.setText(currentPet.getSpecialFeatures());
+        petStateTextView.setText(currentPet.getState());
+        petAgeViewTextView.setText(currentPet.getAge());
+
+
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.editPetFloatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

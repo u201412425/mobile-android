@@ -23,7 +23,8 @@ public class DoggyStyleApp extends Application {
     public static DoggyStyleApp getInstance(){ return instance;}
     public PetEntry getCurrentPet(){return getInstance().service.getCurrentPet();}
     public PetEntry getCurrentPetAdopt(){return getInstance().service.getCurrentPetAdopt();}
-    public void setCurrentPet(PetEntry petEntry){getInstance().service.setCurrentPet(petEntry);}
+    public void setCurrentPet(PetEntry petEntry){
+        getInstance().service.setCurrentPet(petEntry);}
     public void setCurrentPetAdopt(PetEntry petEntry){getInstance().service.setCurrentPetAdopt(petEntry);}
 
     @Override

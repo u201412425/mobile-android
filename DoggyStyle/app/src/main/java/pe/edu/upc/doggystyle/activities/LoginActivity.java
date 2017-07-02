@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), MyPetsActivity.class));
-                if(connection){
+               /* if(connection){
                     Session session =  loginApi.Login(userTextInputEditText,passwordTextInputEditText);
                     if(!session.equals("")){
                         if(!session.getToken().equals("")){
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
 
-                }
+                }*/
             }
         });
         registerBtnText = (TextView) findViewById(R.id.register_btn_txt);

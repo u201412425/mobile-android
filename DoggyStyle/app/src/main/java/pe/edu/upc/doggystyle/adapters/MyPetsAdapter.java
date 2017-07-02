@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.List;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
 import pe.edu.upc.doggystyle.models.PetEntry;
@@ -34,7 +35,7 @@ public class MyPetsAdapter extends RecyclerView.Adapter<MyPetsAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final MyPetsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final MyPetsAdapter.ViewHolder holder, final int position) {
         PetEntry petEntry = getPetEntries().get(position);
         holder.petNameTextView.setText(petEntries.get(position).getNamePet());
         holder.petAgeTextView.setText(petEntries.get(position).getAge());
@@ -43,6 +44,8 @@ public class MyPetsAdapter extends RecyclerView.Adapter<MyPetsAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PetEntry pet = petEntries.get(position);
+                DoggyStyleApp.getInstance().setCurrentPet(pet);
                 listener.onEntryClick(0);
             }
         });
