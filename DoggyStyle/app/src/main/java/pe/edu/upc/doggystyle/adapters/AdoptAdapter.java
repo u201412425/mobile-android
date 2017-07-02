@@ -53,7 +53,7 @@ public class AdoptAdapter extends RecyclerView.Adapter<AdoptAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onEntryClick(holder.getAdapterPosition());
+                listener.onEntryClick(0);
             }
         });
     }

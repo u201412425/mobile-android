@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import java.util.List;
 
+import pe.edu.upc.doggystyle.fragments.AddPetFragment;
 import pe.edu.upc.doggystyle.fragments.AdoptFragment;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.fragments.MyPetsFragment;
@@ -84,7 +85,10 @@ public class MyPets extends AppCompatActivity
 
     @Override
     public void onMyPetsFragmentInteraction(int index) {
-        fragment = new PetDetailFragment();
+        if(index==0)
+            fragment = new PetDetailFragment();
+        else
+            fragment = new AddPetFragment();
         addFragment();
     }
 
@@ -93,7 +97,6 @@ public class MyPets extends AppCompatActivity
         fragment = new RehomeFragment();
         addFragment();
     }
-
     @Override
     public void onRehomeFragmentInteraction() {
         popBack();

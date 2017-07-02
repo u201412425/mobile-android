@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">DoggyStyle</string>
+    <string name="app_name">FindAppet</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">Register User</string>
     <string name="title_activity_my_pets">MyPets</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
