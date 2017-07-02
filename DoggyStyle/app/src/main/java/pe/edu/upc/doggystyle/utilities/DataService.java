@@ -12,17 +12,22 @@ import pe.edu.upc.doggystyle.models.Shelter;
 
 public class DataService {
     static DataService dataService;
+
+    private PetEntry currentPet;
+    private PetEntry currentPetAdopt;
     private List<PetEntry> adoptEntries;
     private List<PetEntry> myPetsEntries;
     private List<Shelter> shelterEntries;
-    DataService(){
-        adoptEntries = new ArrayList<>();
-        myPetsEntries = new ArrayList<>();
+    public DataService(){
+        currentPet = new PetEntry();
+        currentPetAdopt = new PetEntry();
+        adoptEntries= new ArrayList<>();
+        myPetsEntries= new ArrayList<>();
         shelterEntries = new ArrayList<>();
-        adoptEntries.add(new PetEntry("Collie",1993,11,0,"Tetanos"));
+        /*adoptEntries.add(new PetEntry("Collie",1993,11,0,"Tetanos"));
         adoptEntries.add(new PetEntry("Yorkshire",1995,12,10,"Rabia"));
         myPetsEntries.add(new PetEntry("San Bernardo",1990,11,0,"Rabia"));
-        myPetsEntries.add(new PetEntry("Bulldog",1990,12,10,"Tetanos"));
+        myPetsEntries.add(new PetEntry("Bulldog",1990,12,10,"Tetanos"));*/
         shelterEntries.add(new Shelter("San Jacinto", "Lima", "Surco"));
         shelterEntries.add(new Shelter("Santa Marta", "Lima", "San Juan de Lurigancho"));
     }
@@ -42,4 +47,29 @@ public class DataService {
     public List<Shelter> getShelterEntries() {
         return shelterEntries;
     }
+
+    public void setAdoptEntries(List<PetEntry> adoptEntries) {
+        this.adoptEntries = adoptEntries;
+    }
+
+    public void setMyPetsEntries(List<PetEntry> myPetsEntries) {
+        this.myPetsEntries = myPetsEntries;
+    }
+
+    public PetEntry getCurrentPet() {
+        return currentPet;
+    }
+
+    public void setCurrentPet(PetEntry currentPet) {
+        this.currentPet = currentPet;
+    }
+
+    public PetEntry getCurrentPetAdopt() {
+        return currentPetAdopt;
+    }
+
+    public void setCurrentPetAdopt(PetEntry currentPetAdopt) {
+        this.currentPetAdopt = currentPetAdopt;
+    }
+
 }

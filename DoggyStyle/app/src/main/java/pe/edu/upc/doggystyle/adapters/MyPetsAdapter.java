@@ -15,26 +15,26 @@ import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
 import pe.edu.upc.doggystyle.models.PetEntry;
 
 /**
- * Created by p6 on 18/05/2017.
+ * Created by goman on 7/2/2017.
  */
 
-public class AdoptAdapter extends RecyclerView.Adapter<AdoptAdapter.ViewHolder> {
+public class MyPetsAdapter extends RecyclerView.Adapter<MyPetsAdapter.ViewHolder> {
     private Context context;
     private List<PetEntry> petEntries;
     private OnEntryClickListener listener;
-    public AdoptAdapter(Context context, List<PetEntry> petEntries, OnEntryClickListener listener) {
+
+    public MyPetsAdapter(Context context, List<PetEntry> petEntries, OnEntryClickListener listener) {
         this.context = context;
         this.setPetEntries(petEntries);
         this.listener = listener;
     }
-
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.card_adopt,parent,false));
+    public MyPetsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new MyPetsAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.card_adopt,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final MyPetsAdapter.ViewHolder holder, int position) {
         PetEntry petEntry = getPetEntries().get(position);
         holder.petNameTextView.setText(petEntries.get(position).getNamePet());
         holder.petAgeTextView.setText(petEntries.get(position).getAge());
@@ -53,25 +53,12 @@ public class AdoptAdapter extends RecyclerView.Adapter<AdoptAdapter.ViewHolder> 
         return getPetEntries().size();
     }
 
-    private int getAge(int year, int month, int day){
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
-        dob.set(year, month, day);
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
-            age--;
-        }
-        return age;
-    }
 
     public List<PetEntry> getPetEntries() {
         return petEntries;
     }
 
-    public AdoptAdapter setPetEntries(List<PetEntry> petEntries) {
+    public MyPetsAdapter setPetEntries(List<PetEntry> petEntries) {
         this.petEntries = petEntries;
         return this;
     }

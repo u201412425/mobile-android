@@ -1,32 +1,19 @@
 package pe.edu.upc.doggystyle.activities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.OkHttpResponseListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import okhttp3.Response;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.models.Session;
 import pe.edu.upc.doggystyle.network.LoginApi;
@@ -57,12 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), MyPets.class));
+                startActivity(new Intent(v.getContext(), MyPetsActivity.class));
                 if(connection){
                     Session session =  loginApi.Login(userTextInputEditText,passwordTextInputEditText);
                     if(!session.equals("")){
                         if(!session.getToken().equals("")){
-                            startActivity(new Intent(LoginActivity.this,MyPets.class));
+                            startActivity(new Intent(LoginActivity.this,MyPetsActivity.class));
                         }
                     }
 

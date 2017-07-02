@@ -2,8 +2,6 @@ package pe.edu.upc.doggystyle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this,MyPets.class));
+                startActivity(new Intent(RegisterActivity.this,MyPetsActivity.class));
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

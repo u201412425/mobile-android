@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -20,12 +21,13 @@ import pe.edu.upc.doggystyle.fragments.PetDetailFragment;
 import pe.edu.upc.doggystyle.fragments.RehomeFragment;
 import pe.edu.upc.doggystyle.fragments.ShelterFragment;
 
-public class MyPets extends AppCompatActivity
+public class MyPetsActivity extends AppCompatActivity
         implements AdoptFragment.OnFragmentInteractionListener,
         MyPetsFragment.OnFragmentInteractionListener,
         PetDetailFragment.OnDetailFragmentInteractionListener,
         RehomeFragment.OnRehomeFragmentInteractionListener,
-        ShelterFragment.OnFragmentInteractionListener
+        ShelterFragment.OnFragmentInteractionListener,
+        AddPetFragment.OnAddPetFragmentInteractionListener
         {
 
     Fragment fragment;
@@ -61,14 +63,14 @@ public class MyPets extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         fragment = new AdoptFragment();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.main_container, fragment).commit();
+        transaction.replace(R.id.main_container, fragment).commit();
         
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
     void addFragment(){
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.main_container, fragment).commit();
+        transaction.replace(R.id.main_container, fragment).commit();
     }
 
     void popBack(){
@@ -102,8 +104,15 @@ public class MyPets extends AppCompatActivity
         popBack();
     }
 
-            @Override
-            public void onShelterFragmentInteraction(int index) {
+    @Override
+    public void onShelterFragmentInteraction(int index) {
 
-            }
+    }
+
+    @Override
+    public void OnAddPetFragmentInteractionListener() {
+        Log.d("STATE","Si corre");
+        fragment = new MyPetsFragment();
+        addFragment();
+    }
         }

@@ -46,7 +46,7 @@
                 android:value="pe.edu.upc.doggystyle.activities.LoginActivity" />
         </activity>
         <activity
-            android:name=".activities.MyPets"
+            android:name=".activities.MyPetsActivity"
             android:label="@string/title_activity_my_pets"
             android:parentActivityName=".activities.LoginActivity">
             <meta-data

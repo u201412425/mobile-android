@@ -19,6 +19,7 @@ import pe.edu.upc.doggystyle.R;
  * A simple {@link Fragment} subclass.
  */
 public class AddPetFragment extends Fragment {
+    private OnAddPetFragmentInteractionListener mListener;
    public AddPetFragment(){
 
    }
@@ -39,9 +40,24 @@ public class AddPetFragment extends Fragment {
     }
 
     public void onButtonPressed() {
-        //if (mListener != null) {
-           //averiguar el onclicklistener
-       // }
+        if (mListener != null) {
+           mListener.OnAddPetFragmentInteractionListener();
+        }
+    }
+    public interface OnAddPetFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void OnAddPetFragmentInteractionListener();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnAddPetFragmentInteractionListener) {
+            mListener = (OnAddPetFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
 }

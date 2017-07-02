@@ -8,17 +8,27 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pe.edu.upc.doggystyle.R;
-import pe.edu.upc.doggystyle.adapters.AdoptAdapter;
+import pe.edu.upc.doggystyle.adapters.MyPetsAdapter;
 import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.network.PetApi;
 import pe.edu.upc.doggystyle.utilities.DataService;
 
 /**
@@ -32,10 +42,12 @@ import pe.edu.upc.doggystyle.utilities.DataService;
 public class MyPetsFragment extends Fragment implements OnEntryClickListener {
     // TODO: Rename parameter arguments, choose names that match
     RecyclerView recyclerView;
-    AdoptAdapter adoptAdapter;
+    MyPetsAdapter myPetsAdapter;
+    List<PetEntry> petEntries;
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static String TAG = "FindAppet";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -102,9 +114,9 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adoptAdapter = new AdoptAdapter(view.getContext(), DataService.getInstance().getMyPetsEntries(), this);
+        myPetsAdapter = new MyPetsAdapter(getContext(), DataService.getInstance().getMyPetsEntries(), this);
         recyclerView = (RecyclerView)view.findViewById(R.id.myPetsRecyclerView);
-        recyclerView.setAdapter(adoptAdapter);
+        recyclerView.setAdapter(myPetsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addPetFloatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -138,5 +150,42 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onMyPetsFragmentInteraction(int index);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateData();
+    }
+
+    private void updateData() {
+        PetApi petApi = new PetApi();
+        int userId = 3;
+        AndroidNetworking.get(petApi.getURL(userId))
+                .setTag(TAG)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                           /* if("error".equalsIgnoreCase(response.getString("Code"))) {
+                                Log.d(TAG, response.getString("message"));
+                                return;
+                            }*/
+                            petEntries = PetEntry.build(response.getJSONArray("Result"));
+                            myPetsAdapter.setPetEntries(petEntries).notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.d(TAG, anError.getLocalizedMessage());
+                    }
+                });
+
     }
 }
