@@ -6,4 +6,15 @@ package pe.edu.upc.doggystyle.utilities;
 
 public class Constants {
     public static final String URL_SERVER = "http://doggystyle.vcsoft.pe/api";
+
+
+
+
+
+    //Constant Session
+    public class  Session{
+        public static final String TOKEN = "Token";
+        public static final String USERID = "UserId";
+        public static final String TYPE = "Type";
+    }
 }

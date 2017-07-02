@@ -39,13 +39,14 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText passwordTextInputEditText;
     Session session;
     SharedPreferencesManager spm;
+    LoginApi loginApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        loginApi = new LoginApi();
 
         userTextInputEditText = (TextInputEditText)findViewById(R.id.user_input);
         passwordTextInputEditText = (TextInputEditText)findViewById(R.id.password_input);
@@ -58,7 +59,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), MyPets.class));
                 if(connection){
-                    login();
+                    Session session =  loginApi.Login(userTextInputEditText,passwordTextInputEditText);
+                    if(!session.equals("")){
+                        if(!session.getToken().equals("")){
+                            startActivity(new Intent(LoginActivity.this,MyPets.class));
+                        }
+                    }
+
                 }
                 else{
 
@@ -91,34 +98,6 @@ public class LoginActivity extends AppCompatActivity {
                     haveConnectedMobile = true;
         }
         return haveConnectedWifi || haveConnectedMobile;
-    }
-
-    private void login()
-    {
-        AndroidNetworking.get(LoginApi.LOGIN_SOURCES)
-                .addHeaders("User",userTextInputEditText.getText().toString())
-                .addHeaders("Password",passwordTextInputEditText.getText().toString())
-                .setTag("tesst")
-                .setPriority(Priority.HIGH.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject result = response.getJSONObject("Result");
-
-                        }catch (JSONException e){
-
-                        }
-                    }
-                    @Override
-                    public void onError(ANError anError) {
-                        Log.d("s","fail");
-                        Log.d("a",anError.getMessage());
-                    }
-                });
-
-
     }
 
 }
