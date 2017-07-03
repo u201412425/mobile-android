@@ -100,8 +100,10 @@ public class MyPetsActivity extends AppCompatActivity
     public void onDetailFragmentInteraction(int index) {
         if(index == 1)
             fragment = new EditPetFragment();
-        else
+        if(index == 2)
             fragment = new RehomeFragment();
+        else
+            fragment = new MyPetsFragment();
         addFragment();
     }
     @Override

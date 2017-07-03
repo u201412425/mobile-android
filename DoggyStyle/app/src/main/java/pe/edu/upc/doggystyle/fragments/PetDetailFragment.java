@@ -6,19 +6,28 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.widget.ANImageView;
+
+import org.json.JSONArray;
 
 import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.network.PetApi;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -115,14 +124,6 @@ public class PetDetailFragment extends Fragment {
         petStateTextView.setText(currentPet.getState());
         petAgeViewTextView.setText(String.valueOf(currentPet.getAge()) );
 
-        ImageButton reHomePetButton = (ImageButton) view.findViewById(R.id.reHomePetButton);
-        reHomePetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonPressed(2);
-            }
-        });
-
 
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.editPetFloatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +161,41 @@ public class PetDetailFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.my_pets_menu, menu);
+    }
+
+    void DeletePet(){
+        PetApi petApi=new PetApi();
+        AndroidNetworking.delete(petApi.getURLPetPut(DoggyStyleApp.getInstance().getCurrentPet().getPetId()))
+                .setTag("delete")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // do anything with response
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        Log.d("Error", error.getLocalizedMessage());
+                    }
+                });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.action_adopt:
+                onButtonPressed(2);
+                break;
+            case R.id.action_delete:
+                DeletePet();
+                onButtonPressed(3);
+                break;
+            default: break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
