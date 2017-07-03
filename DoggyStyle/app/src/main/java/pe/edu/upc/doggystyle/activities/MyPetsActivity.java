@@ -16,6 +16,7 @@ import java.util.List;
 import pe.edu.upc.doggystyle.fragments.AddPetFragment;
 import pe.edu.upc.doggystyle.fragments.AdoptFragment;
 import pe.edu.upc.doggystyle.R;
+import pe.edu.upc.doggystyle.fragments.EditPetFragment;
 import pe.edu.upc.doggystyle.fragments.MyPetsFragment;
 import pe.edu.upc.doggystyle.fragments.PetDetailFragment;
 import pe.edu.upc.doggystyle.fragments.RehomeFragment;
@@ -27,7 +28,8 @@ public class MyPetsActivity extends AppCompatActivity
         PetDetailFragment.OnDetailFragmentInteractionListener,
         RehomeFragment.OnRehomeFragmentInteractionListener,
         ShelterFragment.OnFragmentInteractionListener,
-        AddPetFragment.OnAddPetFragmentInteractionListener
+        AddPetFragment.OnAddPetFragmentInteractionListener,
+        EditPetFragment.OnEditPetFragmentInteractionListener
         {
 
     Fragment fragment;
@@ -95,8 +97,11 @@ public class MyPetsActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDetailFragmentInteraction() {
-        fragment = new RehomeFragment();
+    public void onDetailFragmentInteraction(int index) {
+        if(index == 1)
+            fragment = new EditPetFragment();
+        else
+            fragment = new RehomeFragment();
         addFragment();
     }
     @Override
@@ -111,8 +116,13 @@ public class MyPetsActivity extends AppCompatActivity
 
     @Override
     public void OnAddPetFragmentInteractionListener() {
-        Log.d("STATE","Si corre");
         fragment = new MyPetsFragment();
         addFragment();
     }
-        }
+
+    @Override
+    public void onEditPetFragmentInteraction() {
+        fragment = new MyPetsFragment();
+        addFragment();
+    }
+}

@@ -172,9 +172,9 @@ public class PetEntry {
         return this;
     }
     public PetEntry setType(String value) {
-        if(value=="Dog")
+        if(value.equals("Dog"))
             this.type = 1;
-        if(value=="Cat")
+        if(value.equals("Cat"))
             this.type = 2;
         else
             this.type = 1;

@@ -1,17 +1,18 @@
 package pe.edu.upc.doggystyle.fragments;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.androidnetworking.AndroidNetworking;
@@ -23,37 +24,49 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.network.PetApi;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class AddPetFragment extends Fragment {
+public class EditPetFragment extends Fragment {
     TextInputEditText nameTextInputEditText;
     TextInputEditText descriptionTextInputEditText;
+    Spinner typeSpinner;
     TextInputEditText ageTextInputEditText;
     TextInputEditText specialFeaturesTextInputEditText;
-    Spinner typeSpinner;
-    private OnAddPetFragmentInteractionListener mListener;
-   public AddPetFragment(){
 
-   }
+    private OnEditPetFragmentInteractionListener mListener;
+
+    public EditPetFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_pet, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_pet, container, false);
         nameTextInputEditText= (TextInputEditText) view.findViewById(R.id.nameTextInputEditText);
         descriptionTextInputEditText = (TextInputEditText) view.findViewById(R.id.descriptionTextInputEditText);
         ageTextInputEditText = (TextInputEditText) view.findViewById(R.id.ageTextInputEditText);
         specialFeaturesTextInputEditText = (TextInputEditText) view.findViewById(R.id.specialFeaturesTextInputEditText);
         typeSpinner = (Spinner) view.findViewById(R.id.typeSpinner);
+        PetEntry currentPetEntry = DoggyStyleApp.getInstance().getCurrentPet();
 
+        nameTextInputEditText.setText(currentPetEntry.getNamePet());
+        descriptionTextInputEditText.setText(currentPetEntry.getDescription());
+        ageTextInputEditText.setText(String.valueOf(currentPetEntry.getAge()) );
+        specialFeaturesTextInputEditText.setText(currentPetEntry.getSpecialFeatures());
+        typeSpinner.setSelection(currentPetEntry.getType()-1);
 
-        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addNewPetFloatingActionButton);
+        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.editPetFloatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,13 +76,40 @@ public class AddPetFragment extends Fragment {
         return view;
     }
 
-    void InsertPet(){
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed() {
+            if (mListener != null) {
+                EditPet();
+                mListener.onEditPetFragmentInteraction();
+            }
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEditPetFragmentInteractionListener) {
+            mListener = (OnEditPetFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    void EditPet(){
         final PetEntry petEntry = new PetEntry().setNamePet(nameTextInputEditText.getText().toString())
                 .setDescription(descriptionTextInputEditText.getText().toString())
                 .setAge(Integer.valueOf(ageTextInputEditText.getText().toString()) )
                 .setSpecialFeatures(specialFeaturesTextInputEditText.getText().toString())
                 .setType(typeSpinner.getSelectedItem().toString())
-                .setUserId(3);
+                .setUserId(DoggyStyleApp.getInstance().getCurrentPet().getUserId())
+                .setPetId(DoggyStyleApp.getInstance().getCurrentPet().getPetId());
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("UserId",Integer.valueOf( petEntry.getUserId()));
@@ -83,7 +123,9 @@ public class AddPetFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AndroidNetworking.put("http://doggystyle.vcsoft.pe/api/Pets/0")
+
+        PetApi petApi=new PetApi();
+        AndroidNetworking.put(petApi.getURLPetPut(petEntry.getPetId()))
                 .addJSONObjectBody(jsonObject) // posting json
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -102,30 +144,18 @@ public class AddPetFragment extends Fragment {
 
     }
 
-    public void onButtonPressed() {
-        if (mListener != null) {
-            try {
-                InsertPet();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-           mListener.OnAddPetFragmentInteractionListener();
-        }
-    }
-    public interface OnAddPetFragmentInteractionListener {
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnEditPetFragmentInteractionListener {
         // TODO: Update argument type and name
-        void OnAddPetFragmentInteractionListener();
+        void onEditPetFragmentInteraction();
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnAddPetFragmentInteractionListener) {
-            mListener = (OnAddPetFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
 }

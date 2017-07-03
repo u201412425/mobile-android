@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.androidnetworking.widget.ANImageView;
@@ -111,20 +112,28 @@ public class PetDetailFragment extends Fragment {
         petStateTextView.setText(currentPet.getState());
         petAgeViewTextView.setText(String.valueOf(currentPet.getAge()) );
 
+        ImageButton reHomePetButton = (ImageButton) view.findViewById(R.id.reHomePetButton);
+        reHomePetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPressed(2);
+            }
+        });
+
 
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.editPetFloatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onButtonPressed();
+                onButtonPressed(1);
             }
         });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed() {
+    public void onButtonPressed(int index) {
         if (mListener != null) {
-            mListener.onDetailFragmentInteraction();
+            mListener.onDetailFragmentInteraction(index);
         }
     }
 
@@ -157,6 +166,6 @@ public class PetDetailFragment extends Fragment {
      */
     public interface OnDetailFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onDetailFragmentInteraction();
+        void onDetailFragmentInteraction(int index);
     }
 }
