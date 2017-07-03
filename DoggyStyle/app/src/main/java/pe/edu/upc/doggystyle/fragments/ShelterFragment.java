@@ -75,6 +75,7 @@ public class ShelterFragment extends Fragment implements OnEntryClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -87,13 +88,6 @@ public class ShelterFragment extends Fragment implements OnEntryClickListener {
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shelter, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(int index) {
-        if (mListener != null) {
-            mListener.onShelterFragmentInteraction(index);
-        }
     }
 
     @Override
@@ -122,6 +116,12 @@ public class ShelterFragment extends Fragment implements OnEntryClickListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
+    public void onButtonPressed() {
+        if (mListener != null) {
+            mListener.onShelterFragmentInteraction(1);
+        }
+    }
+
     @Override
     public void onEntryClick(int index) {
         mListener.onShelterFragmentInteraction(index);
@@ -131,6 +131,11 @@ public class ShelterFragment extends Fragment implements OnEntryClickListener {
     public void onResume() {
         super.onResume();
         updateData();
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onShelterFragmentInteraction(int index);
     }
 
     private void updateData() {
@@ -154,20 +159,5 @@ public class ShelterFragment extends Fragment implements OnEntryClickListener {
                         Log.d(TAG, anError.getLocalizedMessage());
                     }
                 });
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onShelterFragmentInteraction(int index);
     }
 }

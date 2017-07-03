@@ -22,6 +22,8 @@ public class Shelter {
     int capacity;
     int avialableCapacity;
 
+    private String imagenUrl;
+
     public Shelter() {
     }
 
@@ -139,6 +141,15 @@ public class Shelter {
 
     public Shelter setAvialableCapacity(int avialableCapacity) {
         this.avialableCapacity = avialableCapacity;
+        return this;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public Shelter setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
         return this;
     }
 }

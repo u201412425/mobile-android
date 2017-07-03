@@ -20,6 +20,7 @@ import pe.edu.upc.doggystyle.fragments.EditPetFragment;
 import pe.edu.upc.doggystyle.fragments.MyPetsFragment;
 import pe.edu.upc.doggystyle.fragments.PetDetailFragment;
 import pe.edu.upc.doggystyle.fragments.RehomeFragment;
+import pe.edu.upc.doggystyle.fragments.ShelterDetailFragment;
 import pe.edu.upc.doggystyle.fragments.ShelterFragment;
 
 public class MyPetsActivity extends AppCompatActivity
@@ -29,7 +30,8 @@ public class MyPetsActivity extends AppCompatActivity
         RehomeFragment.OnRehomeFragmentInteractionListener,
         ShelterFragment.OnFragmentInteractionListener,
         AddPetFragment.OnAddPetFragmentInteractionListener,
-        EditPetFragment.OnEditPetFragmentInteractionListener
+        EditPetFragment.OnEditPetFragmentInteractionListener,
+        ShelterDetailFragment.OnFragmentInteractionListener
         {
 
     Fragment fragment;
@@ -110,6 +112,7 @@ public class MyPetsActivity extends AppCompatActivity
         }
         addFragment();
     }
+
     @Override
     public void onRehomeFragmentInteraction() {
         popBack();
@@ -117,17 +120,15 @@ public class MyPetsActivity extends AppCompatActivity
 
     @Override
     public void onShelterFragmentInteraction(int index) {
-        // TODO Change
-        switch(index) {
-            case 1:
-                fragment = new EditPetFragment();
-                break;
-            case 2:
-                fragment = new RehomeFragment();
+        switch (index){
+            case 0:
+                fragment = new ShelterDetailFragment();
                 break;
             default:
-                fragment = new MyPetsFragment();
+                break;
         }
+
+        addFragment();
     }
 
     @Override
@@ -141,4 +142,11 @@ public class MyPetsActivity extends AppCompatActivity
         fragment = new MyPetsFragment();
         addFragment();
     }
-}
+
+    // Shelter Detail Interaction
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        fragment = new ShelterDetailFragment();
+        addFragment();
+    }
+        }

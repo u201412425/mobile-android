@@ -11,6 +11,7 @@ import com.androidnetworking.widget.ANImageView;
 
 import java.util.List;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
 import pe.edu.upc.doggystyle.models.Shelter;
@@ -37,15 +38,17 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        Shelter shelterEntry = shelterEntries.get(position);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final Shelter shelterEntry = shelterEntries.get(position);
         holder.nameTextView.setText(shelterEntry.getName());
         //holder.locationTextView.setText(shelterEntry.getLocation());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onEntryClick(holder.getAdapterPosition());
+                Shelter shelter = shelterEntries.get(position);
+                DoggyStyleApp.getInstance().setCurrentShelter(shelter);
+                listener.onEntryClick(0);
             }
         });
     }

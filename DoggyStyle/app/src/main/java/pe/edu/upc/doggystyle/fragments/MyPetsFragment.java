@@ -121,6 +121,7 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
         recyclerView = (RecyclerView)view.findViewById(R.id.myPetsRecyclerView);
         recyclerView.setAdapter(myPetsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addPetFloatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +130,7 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
             }
         });
     }
+    
     public void onButtonPressed() {
         if (mListener != null) {
             mListener.onMyPetsFragmentInteraction(1);
@@ -140,25 +142,15 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
         mListener.onMyPetsFragmentInteraction(index);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onMyPetsFragmentInteraction(int index);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         updateData();
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onMyPetsFragmentInteraction(int index);
     }
 
     private void updateData() {

@@ -4,6 +4,7 @@ import android.app.Application;
 import com.androidnetworking.AndroidNetworking;
 
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.models.Shelter;
 import pe.edu.upc.doggystyle.utilities.DataService;
 
 /**
@@ -25,7 +26,15 @@ public class DoggyStyleApp extends Application {
     public PetEntry getCurrentPetAdopt(){return getInstance().service.getCurrentPetAdopt();}
     public void setCurrentPet(PetEntry petEntry){
         getInstance().service.setCurrentPet(petEntry);}
-    public void setCurrentPetAdopt(PetEntry petEntry){getInstance().service.setCurrentPetAdopt(petEntry);}
+    public void setCurrentPetAdopt(PetEntry petEntry) {getInstance().service.setCurrentPetAdopt(petEntry);}
+
+    public Shelter getCurrentShelter() {
+        return getInstance().service.getCurrentShelter();
+    }
+
+    public void setCurrentShelter(Shelter currentShelter){
+        getInstance().service.setCurrentShelter(currentShelter);
+    }
 
     @Override
     public void onCreate() {

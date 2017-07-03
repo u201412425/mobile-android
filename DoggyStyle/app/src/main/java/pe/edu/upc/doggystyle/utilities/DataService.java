@@ -13,11 +13,13 @@ import pe.edu.upc.doggystyle.models.Shelter;
 public class DataService {
     static DataService dataService;
 
+    private Shelter CurrentShelter;
     private PetEntry currentPet;
     private PetEntry currentPetAdopt;
     private List<PetEntry> adoptEntries;
     private List<PetEntry> myPetsEntries;
     private List<Shelter> shelterEntries;
+
     public DataService(){
         currentPet = new PetEntry();
         currentPetAdopt = new PetEntry();
@@ -31,6 +33,7 @@ public class DataService {
         shelterEntries.add(new Shelter("San Jacinto", "Lima", "Surco"));
         shelterEntries.add(new Shelter("Santa Marta", "Lima", "San Juan de Lurigancho"));*/
     }
+
     public static DataService getInstance(){
         if(dataService==null) dataService = new DataService();
         return dataService;
@@ -71,5 +74,14 @@ public class DataService {
 
     public void setCurrentPetAdopt(PetEntry currentPetAdopt) {
         this.currentPetAdopt = currentPetAdopt;
+    }
+
+    public Shelter getCurrentShelter() {
+
+        return CurrentShelter;
+    }
+
+    public void setCurrentShelter(Shelter CurrentShelter) {
+        this.CurrentShelter = CurrentShelter;
     }
 }
