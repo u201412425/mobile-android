@@ -79,7 +79,6 @@ public class PetEntry {
     public static PetEntry build(JSONObject jsonPetEntry) {
         if(jsonPetEntry == null) return null;
         try {
-            List<String> sortBysAvailable = new ArrayList<>();
             return (new PetEntry()).setPetId(jsonPetEntry.getInt("PetId"))
                     .setUserId(jsonPetEntry.getInt("UserId"))
                     .setNamePet(jsonPetEntry.getString("NamePet"))

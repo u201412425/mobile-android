@@ -98,12 +98,16 @@ public class MyPetsActivity extends AppCompatActivity
 
     @Override
     public void onDetailFragmentInteraction(int index) {
-        if(index == 1)
-            fragment = new EditPetFragment();
-        if(index == 2)
-            fragment = new RehomeFragment();
-        else
-            fragment = new MyPetsFragment();
+        switch(index) {
+            case 1:
+                fragment = new EditPetFragment();
+                break;
+            case 2:
+                fragment = new RehomeFragment();
+                break;
+            default:
+                fragment = new MyPetsFragment();
+        }
         addFragment();
     }
     @Override
@@ -113,7 +117,17 @@ public class MyPetsActivity extends AppCompatActivity
 
     @Override
     public void onShelterFragmentInteraction(int index) {
-
+        // TODO Change
+        switch(index) {
+            case 1:
+                fragment = new EditPetFragment();
+                break;
+            case 2:
+                fragment = new RehomeFragment();
+                break;
+            default:
+                fragment = new MyPetsFragment();
+        }
     }
 
     @Override

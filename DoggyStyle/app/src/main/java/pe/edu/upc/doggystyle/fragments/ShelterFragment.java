@@ -6,13 +6,25 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import org.json.JSONObject;
+
+import java.util.List;
+
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.adapters.ShelterAdapter;
 import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
+import pe.edu.upc.doggystyle.models.Shelter;
+import pe.edu.upc.doggystyle.network.ShelterApi;
 import pe.edu.upc.doggystyle.utilities.DataService;
 
 /**
@@ -30,6 +42,7 @@ public class ShelterFragment extends Fragment implements OnEntryClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static String TAG = "FindAppet";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -112,6 +125,35 @@ public class ShelterFragment extends Fragment implements OnEntryClickListener {
     @Override
     public void onEntryClick(int index) {
         mListener.onShelterFragmentInteraction(index);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateData();
+    }
+
+    private void updateData() {
+        ShelterApi sheterApi = new ShelterApi();
+        AndroidNetworking.get(sheterApi.getShelterURL())
+                .setTag(TAG)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            List<Shelter> shelterEntries = Shelter.build(response.getJSONArray("Result"));
+                            shelterAdapter.setShelterEntries(shelterEntries).notifyDataSetChanged();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.d(TAG, anError.getLocalizedMessage());
+                    }
+                });
     }
 
     /**

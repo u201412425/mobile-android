@@ -155,7 +155,6 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
         void onMyPetsFragmentInteraction(int index);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();

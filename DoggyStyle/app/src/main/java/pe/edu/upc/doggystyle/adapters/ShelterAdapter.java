@@ -40,7 +40,7 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Shelter shelterEntry = shelterEntries.get(position);
         holder.nameTextView.setText(shelterEntry.getName());
-        holder.locationTextView.setText(shelterEntry.getLocation());
+        //holder.locationTextView.setText(shelterEntry.getLocation());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,5 +66,14 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             locationTextView = (TextView) itemView.findViewById(R.id.locationTextView);
         }
+    }
+
+    public List<Shelter> getShelterEntries() {
+        return shelterEntries;
+    }
+
+    public ShelterAdapter setShelterEntries(List<Shelter> shelterEntries) {
+        this.shelterEntries = shelterEntries;
+        return this;
     }
 }
