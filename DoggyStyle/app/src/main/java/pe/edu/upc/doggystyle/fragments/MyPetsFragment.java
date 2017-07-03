@@ -170,10 +170,6 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                           /* if("error".equalsIgnoreCase(response.getString("Code"))) {
-                                Log.d(TAG, response.getString("message"));
-                                return;
-                            }*/
                             petEntries = PetEntry.build(response.getJSONArray("Result"));
                             myPetsAdapter.setPetEntries(petEntries).notifyDataSetChanged();
                         } catch (JSONException e) {

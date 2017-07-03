@@ -104,12 +104,12 @@ public class PetDetailFragment extends Fragment {
         petImageView.setDefaultImageResId(R.drawable.ic_pets_black_24dp);
         petImageView.setErrorImageResId(R.drawable.ic_pets_black_24dp);
         petImageView.setImageUrl(currentPet.getImagenUrl());
-        petNameTextView.setText(currentPet.getName());
+        petNameTextView.setText(currentPet.getNamePet());
         petDescriptionTextView.setText(currentPet.getDescription());
-        petTypeTextView.setText(currentPet.getType());
+        petTypeTextView.setText(currentPet.getTypeString());
         petSpecialFeaturesTextView.setText(currentPet.getSpecialFeatures());
         petStateTextView.setText(currentPet.getState());
-        petAgeViewTextView.setText(currentPet.getAge());
+        petAgeViewTextView.setText(String.valueOf(currentPet.getAge()) );
 
 
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.editPetFloatingActionButton);

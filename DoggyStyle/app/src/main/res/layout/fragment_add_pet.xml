@@ -60,49 +60,19 @@
                 />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/stateTextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout">
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/stateTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="State"
-                android:inputType="text"
-                />
-        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/typeTextInputLayout"
-            android:layout_width="0dp"
+        <Spinner
+            android:id="@+id/typeSpinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/stateTextInputLayout"
-            app:layout_constraintHorizontal_bias="1.0">
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/typeTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Type"
-                android:inputType="text"
-                />
-        </android.support.design.widget.TextInputLayout>
+            android:entries="@array/type_arrays"
+            android:prompt="@string/type_prompt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/ageTextInputLayout"
@@ -116,7 +86,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="1.0"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/typeTextInputLayout">
+            app:layout_constraintTop_toBottomOf="@+id/typeSpinner">
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/ageTextInputEditText"
                 android:layout_width="match_parent"
@@ -154,9 +124,11 @@
     </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addNewPetFloatingActionButton"
             android:layout_width="wrap_content"

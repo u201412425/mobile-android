@@ -16,15 +16,15 @@ import java.util.Map;
  */
 
 public class PetEntry {
-    private String petId;
-    private String userId;
+    private int petId;
+    private int userId;
     private String namePet;
     private String description;
     private String state;
-    private String type;
+    private int type;
     private String specialFeatures;
     private String petShelterId;
-    private String age;
+    private int age;
     private String imagenUrl;
     private String name;
     private String[] vaccines;
@@ -80,16 +80,16 @@ public class PetEntry {
         if(jsonPetEntry == null) return null;
         try {
             List<String> sortBysAvailable = new ArrayList<>();
-            return (new PetEntry()).setPetId(jsonPetEntry.getString("PetId"))
-                    .setUserId(jsonPetEntry.getString("UserId"))
+            return (new PetEntry()).setPetId(jsonPetEntry.getInt("PetId"))
+                    .setUserId(jsonPetEntry.getInt("UserId"))
                     .setNamePet(jsonPetEntry.getString("NamePet"))
                     .setDescription(jsonPetEntry.getString("Description"))
                     .setNamePet(jsonPetEntry.getString("NamePet"))
                     .setState(jsonPetEntry.getString("State"))
-                    .setType(jsonPetEntry.getString("Type"))
+                    .setType(jsonPetEntry.getInt("Type"))
                     .setSpecialFeatures(jsonPetEntry.getString("SpecialFeatures"))
                     .setPetShelterId(jsonPetEntry.getString("PetShelterId"))
-                    .setAge(jsonPetEntry.getString("Age"))
+                    .setAge(jsonPetEntry.getInt("Age"))
                     .setImagenUrl(jsonPetEntry.getString("ImagenUrl"));
 
         } catch (Exception e) {
@@ -111,20 +111,20 @@ public class PetEntry {
         return sources;
     }
 
-    public String getPetId() {
+    public int getPetId() {
         return petId;
     }
 
-    public PetEntry setPetId(String petId) {
+    public PetEntry setPetId(int petId) {
         this.petId = petId;
         return this;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public PetEntry setUserId(String userId) {
+    public PetEntry setUserId(int userId) {
         this.userId = userId;
         return this;
     }
@@ -156,15 +156,31 @@ public class PetEntry {
         return this;
     }
 
-    public String getType() {
+    public String getTypeString() {
+        if(type==1)
+            return "Dog";
+        if(type==2)
+            return "Cat";
+        else
+            return "I don't know";
+    }
+    public int getType(){
         return type;
     }
-
-    public PetEntry setType(String type) {
+    public PetEntry setType(int type) {
         this.type = type;
         return this;
     }
+    public PetEntry setType(String value) {
+        if(value=="Dog")
+            this.type = 1;
+        if(value=="Cat")
+            this.type = 2;
+        else
+            this.type = 1;
 
+        return this;
+    }
     public String getSpecialFeatures() {
         return specialFeatures;
     }
@@ -183,11 +199,11 @@ public class PetEntry {
         return this;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public PetEntry setAge(String age) {
+    public PetEntry setAge(int age) {
         this.age = age;
         return this;
     }
