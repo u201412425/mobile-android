@@ -12,6 +12,6 @@ public class PetApi {
         return  Constants.URL_SERVER+ "/"+Integer.toString(userId)+"/Pets";
     }
     public String getURLPetPut(int petId){
-        return  Constants.URL_SERVER+ "/"+"/Pets"+Integer.toString(petId);
+        return  Constants.URL_SERVER+ "/"+"/Pets/"+Integer.toString(petId);
     }
 }
