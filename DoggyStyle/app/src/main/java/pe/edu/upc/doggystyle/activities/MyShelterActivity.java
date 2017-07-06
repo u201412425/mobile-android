@@ -67,7 +67,7 @@ public class MyShelterActivity extends AppCompatActivity
     }
 
     @Override
-    public void OnGivePetFragmentInteractionListener(Uri uri) {
+    public void OnGivePetFragmentInteractionListener(int index) {
         fragment = new GivePetFragment();
         addFragment();
     }
