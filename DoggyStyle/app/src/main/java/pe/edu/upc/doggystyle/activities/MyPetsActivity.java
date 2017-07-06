@@ -11,8 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.fragments.AddPetFragment;
 import pe.edu.upc.doggystyle.fragments.AdoptFragment;
 import pe.edu.upc.doggystyle.R;
@@ -25,6 +36,7 @@ import pe.edu.upc.doggystyle.fragments.RehomeFragment;
 import pe.edu.upc.doggystyle.fragments.RequestPetFragment;
 import pe.edu.upc.doggystyle.fragments.ShelterDetailFragment;
 import pe.edu.upc.doggystyle.fragments.ShelterFragment;
+import pe.edu.upc.doggystyle.models.PetEntry;
 
 public class MyPetsActivity extends AppCompatActivity
         implements AdoptFragment.onAdoptFragmentInteraction,

@@ -151,7 +151,6 @@ public class GivePetFragment extends Fragment implements OnEntryClickListener {
     }
 
     private void updateData() {
-        PetApi petApi = new PetApi();
         int userId = DoggyStyleApp.getInstance().getCurrentSession().getId();
         AndroidNetworking.get("http://doggystyle.vcsoft.pe/api/petadoption/"+userId)
                 .setTag(TAG)

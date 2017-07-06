@@ -140,7 +140,7 @@ public class PetDetailAdoptFragment extends Fragment {
         try {
             jsonObject.put("AdoptionRequestId", 0);
             jsonObject.put("UserId", DoggyStyleApp.getInstance().getCurrentSession().getId() );
-            jsonObject.put("PetIdAdoptionId", DoggyStyleApp.getInstance().getCurrentPet().getPetId());
+            jsonObject.put("PetId", DoggyStyleApp.getInstance().getCurrentPet().getPetId());
             jsonObject.put("Description", adoptDescriptionTextInputEditText.getText().toString());
             jsonObject.put("State", "ACT");
         } catch (JSONException e) {

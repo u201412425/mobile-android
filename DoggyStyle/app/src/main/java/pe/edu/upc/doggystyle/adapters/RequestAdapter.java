@@ -2,14 +2,25 @@ package pe.edu.upc.doggystyle.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
 import pe.edu.upc.doggystyle.models.Request;
@@ -35,13 +46,42 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.nameTextView.setText(getRequestList().get(position).getName());
-        holder.descriptionTextView.setText(getRequestList().get(position).getName());
+        holder.descriptionTextView.setText(getRequestList().get(position).getDescription());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("AdoptionRequestId", getRequestList().get(position).getAdoptionRequestId() );
+                        jsonObject.put("UserId", DoggyStyleApp.getInstance().getCurrentSession().getId() );
+                        jsonObject.put("PetId", 0);
+                        jsonObject.put("Description", "");
+                        jsonObject.put("State", "ACT");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    AndroidNetworking.put("http://doggystyle.vcsoft.pe/api/adoptionrequest/"+DoggyStyleApp.getInstance().getCurrentRequest().getAdoptionRequestId())
+                            .addJSONObjectBody(jsonObject) // posting json
+                            .setTag("test")
+                            .setPriority(Priority.MEDIUM)
+                            .build()
+                            .getAsJSONArray(new JSONArrayRequestListener() {
+                                @Override
+                                public void onResponse(JSONArray response) {
+                                    // do anything with response
+                                }
+                                @Override
+                                public void onError(ANError error) {
+                                    // handle error
+                                    Log.d("Error", error.getLocalizedMessage());
+                                }
+                            });
+
+                DoggyStyleApp.getInstance().setCurrentRequest(requestList.get(position));
                 listener.onEntryClick(0);
             }
         });
