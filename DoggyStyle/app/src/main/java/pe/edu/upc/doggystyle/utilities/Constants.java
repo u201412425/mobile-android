@@ -13,7 +13,7 @@ public class Constants {
 
     //Constant Session
     public class  Session{
-        public static final String TOKEN = "Token";
+        public static final String TOKEN = "token";
         public static final String USERID = "UserId";
         public static final String TYPE = "Type";
     }
