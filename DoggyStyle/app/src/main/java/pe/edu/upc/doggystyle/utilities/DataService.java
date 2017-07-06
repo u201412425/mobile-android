@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.models.Request;
 import pe.edu.upc.doggystyle.models.Session;
 import pe.edu.upc.doggystyle.models.Shelter;
 
@@ -16,6 +17,7 @@ public class DataService {
 
     private Shelter CurrentShelter;
     private Session currentSession;
+    private Request currentRequest;
     private PetEntry currentPet;
     private PetEntry currentPetAdopt;
     private List<PetEntry> adoptEntries;
@@ -23,6 +25,7 @@ public class DataService {
     private List<Shelter> shelterEntries;
 
     public DataService(){
+        currentRequest = new Request();
         currentSession = new Session();
         currentPet = new PetEntry();
         currentPetAdopt = new PetEntry();
@@ -95,5 +98,13 @@ public class DataService {
 
     public Session getCurrentSession() {
         return currentSession;
+    }
+
+    public void setCurrentRequest(Request request) {
+        this.currentRequest = request;
+    }
+
+    public Request getCurrentRequest() {
+        return currentRequest;
     }
 }

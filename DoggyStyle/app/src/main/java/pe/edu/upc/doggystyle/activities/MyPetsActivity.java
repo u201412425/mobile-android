@@ -11,18 +11,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.fragments.AddPetFragment;
 import pe.edu.upc.doggystyle.fragments.AdoptFragment;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.fragments.EditPetFragment;
 import pe.edu.upc.doggystyle.fragments.GivePetFragment;
 import pe.edu.upc.doggystyle.fragments.MyPetsFragment;
+import pe.edu.upc.doggystyle.fragments.PetDetailAdoptFragment;
 import pe.edu.upc.doggystyle.fragments.PetDetailFragment;
 import pe.edu.upc.doggystyle.fragments.RehomeFragment;
+import pe.edu.upc.doggystyle.fragments.RequestPetFragment;
 import pe.edu.upc.doggystyle.fragments.ShelterDetailFragment;
 import pe.edu.upc.doggystyle.fragments.ShelterFragment;
+import pe.edu.upc.doggystyle.models.PetEntry;
 
 public class MyPetsActivity extends AppCompatActivity
         implements AdoptFragment.onAdoptFragmentInteraction,
@@ -33,7 +47,9 @@ public class MyPetsActivity extends AppCompatActivity
         AddPetFragment.OnAddPetFragmentInteractionListener,
         EditPetFragment.OnEditPetFragmentInteractionListener,
         ShelterDetailFragment.OnFragmentInteractionListener,
-        GivePetFragment.OnGivePetFragmentInteractionListener
+        GivePetFragment.OnGivePetFragmentInteractionListener,
+        RequestPetFragment.OnRequestPetFragmentInteractionListener,
+        PetDetailAdoptFragment.OnDetailAdoptFragmentInteractionListener
         {
 
     Fragment fragment;
@@ -86,8 +102,8 @@ public class MyPetsActivity extends AppCompatActivity
 
     @Override
     public void onAdoptFragmentInteraction(int index) {
-        if(index==1)
-            fragment = new PetDetailFragment();
+        if(index==0)
+            fragment = new PetDetailAdoptFragment();
         else
             fragment = new ShelterFragment();
         addFragment();
@@ -155,8 +171,19 @@ public class MyPetsActivity extends AppCompatActivity
     }
 
     @Override
-    public void OnGivePetFragmentInteractionListener(Uri uri) {
-        fragment = new ShelterDetailFragment();
+    public void OnGivePetFragmentInteractionListener(int index) {
+        fragment = new RequestPetFragment();
         addFragment();
     }
-}
+
+    @Override
+    public void OnRequestPetFragmentInteractionListener(int index) {
+
+    }
+
+    @Override
+    public void OnDetailAdoptFragmentInteractionListener() {
+        fragment = new MyPetsFragment();
+        addFragment();
+    }
+        }
