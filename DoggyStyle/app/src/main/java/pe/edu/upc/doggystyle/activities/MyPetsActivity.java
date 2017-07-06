@@ -17,6 +17,7 @@ import pe.edu.upc.doggystyle.fragments.AddPetFragment;
 import pe.edu.upc.doggystyle.fragments.AdoptFragment;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.fragments.EditPetFragment;
+import pe.edu.upc.doggystyle.fragments.GivePetFragment;
 import pe.edu.upc.doggystyle.fragments.MyPetsFragment;
 import pe.edu.upc.doggystyle.fragments.PetDetailFragment;
 import pe.edu.upc.doggystyle.fragments.RehomeFragment;
@@ -24,7 +25,7 @@ import pe.edu.upc.doggystyle.fragments.ShelterDetailFragment;
 import pe.edu.upc.doggystyle.fragments.ShelterFragment;
 
 public class MyPetsActivity extends AppCompatActivity
-        implements AdoptFragment.OnFragmentInteractionListener,
+        implements AdoptFragment.onAdoptFragmentInteraction,
         MyPetsFragment.OnFragmentInteractionListener,
         PetDetailFragment.OnDetailFragmentInteractionListener,
         RehomeFragment.OnRehomeFragmentInteractionListener,
@@ -44,12 +45,12 @@ public class MyPetsActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = new AdoptFragment();
-                    break;
+                break;
                 case R.id.navigation_dashboard:
                     fragment = new MyPetsFragment();
                     break;
                 case R.id.navigation_notifications:
-                    fragment = new ShelterFragment();
+                    fragment = new GivePetFragment();
                     break;
             }
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -85,7 +86,10 @@ public class MyPetsActivity extends AppCompatActivity
 
     @Override
     public void onAdoptFragmentInteraction(int index) {
-        fragment = new PetDetailFragment();
+        if(index==1)
+            fragment = new PetDetailFragment();
+        else
+            fragment = new ShelterFragment();
         addFragment();
     }
 

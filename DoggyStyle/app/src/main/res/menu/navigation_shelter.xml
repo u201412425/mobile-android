@@ -2,18 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_pets"
         android:icon="@drawable/ic_loyalty_black_24dp"
-        android:title="Adoptar" />
+        android:title="Mascotas" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_give"
         android:icon="@drawable/ic_pets_black_24dp"
-        android:title="Mis mascotas" />
+        android:title="Solicitudes de adopción" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_get"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Mascotas en adopción" />
-
+        android:title="Solicitudes de adopción" />
 </menu>
