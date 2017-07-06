@@ -4,13 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.ButtonBarLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 
 /**
@@ -27,6 +39,7 @@ public class RehomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    TextInputEditText descriptionTextInputEditText;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,13 +82,22 @@ public class RehomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rehome, container, false);
+        View view = inflater.inflate(R.layout.fragment_rehome, container, false);
+        descriptionTextInputEditText=(TextInputEditText) view.findViewById(R.id.descriptionTextInputEditText);
+        Button reHomeButton = (Button) view.findViewById(R.id.reHomeButton);
+        buttonRehome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPressed();
+            }
+        });
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        buttonRehome = (Button) view.findViewById(R.id.buttonRehome);
+        buttonRehome = (Button) view.findViewById(R.id.reHomeButton);
         buttonRehome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,10 +109,38 @@ public class RehomeFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed() {
         if (mListener != null) {
+            reHomePet();
             mListener.onRehomeFragmentInteraction();
         }
     }
 
+    public void reHomePet() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("PetId",DoggyStyleApp.getInstance().getCurrentPet().getPetId());
+            jsonObject.put("Description",descriptionTextInputEditText.getText().toString());
+            jsonObject.put("State", "ADO");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AndroidNetworking.put("http://doggystyle.vcsoft.pe/api/petadoption/"+ DoggyStyleApp.getInstance().getCurrentPet().getPetId())
+                .addJSONObjectBody(jsonObject) // posting json
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // do anything with response
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        Log.d("Error", error.getLocalizedMessage());
+                    }
+                });
+
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
