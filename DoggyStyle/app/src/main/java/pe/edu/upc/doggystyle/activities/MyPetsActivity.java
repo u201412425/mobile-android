@@ -32,7 +32,8 @@ public class MyPetsActivity extends AppCompatActivity
         ShelterFragment.OnFragmentInteractionListener,
         AddPetFragment.OnAddPetFragmentInteractionListener,
         EditPetFragment.OnEditPetFragmentInteractionListener,
-        ShelterDetailFragment.OnFragmentInteractionListener
+        ShelterDetailFragment.OnFragmentInteractionListener,
+        GivePetFragment.OnGivePetFragmentInteractionListener
         {
 
     Fragment fragment;
@@ -153,4 +154,10 @@ public class MyPetsActivity extends AppCompatActivity
         fragment = new ShelterDetailFragment();
         addFragment();
     }
-        }
+
+    @Override
+    public void OnGivePetFragmentInteractionListener(Uri uri) {
+        fragment = new ShelterDetailFragment();
+        addFragment();
+    }
+}

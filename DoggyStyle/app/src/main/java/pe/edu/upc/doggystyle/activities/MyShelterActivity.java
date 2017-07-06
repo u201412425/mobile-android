@@ -29,9 +29,6 @@ public class MyShelterActivity extends AppCompatActivity {
                 case R.id.navigation_give:
                     fragment = new GivePetShelterFragment();
                     return true;
-                case R.id.navigation_get:
-                    fragment = new GetPetShelterFragment();
-                    return true;
             }
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.main_container, fragment).commit();

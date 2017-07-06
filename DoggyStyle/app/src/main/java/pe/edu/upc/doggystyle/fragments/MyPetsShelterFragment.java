@@ -71,7 +71,7 @@ public class MyPetsShelterFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.OnMyPetsShelterFragmentInteractionListener(uri);
         }
     }
 
@@ -104,6 +104,6 @@ public class MyPetsShelterFragment extends Fragment {
      */
     public interface OnMyPetsShelterFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void OnMyPetsShelterFragmentInteractionListener(Uri uri);
     }
 }

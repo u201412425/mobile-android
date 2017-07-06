@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -35,11 +36,13 @@ import pe.edu.upc.doggystyle.R;
  */
 public class RehomeFragment extends Fragment {
     Button buttonRehome;
+    TextInputEditText descriptionTextInputEditText;
+    TextView namePetTextView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    TextInputEditText descriptionTextInputEditText;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -82,15 +85,16 @@ public class RehomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_rehome, container, false);
 
-        return view;
+        return inflater.inflate(R.layout.fragment_rehome, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        descriptionTextInputEditText=(TextInputEditText) view.findViewById(R.id.descriptionRehomeTextInputLayout);
+        descriptionTextInputEditText = (TextInputEditText) view.findViewById(R.id.descriptionTextInputEditText);
+        namePetTextView = (TextView) view.findViewById(R.id.namePetTextView);
+        namePetTextView.setText(DoggyStyleApp.getInstance().getCurrentPet().getNamePet());
         buttonRehome = (Button) view.findViewById(R.id.reHomeButton);
         buttonRehome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +121,7 @@ public class RehomeFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AndroidNetworking.put("http://doggystyle.vcsoft.pe/api/petadoption/"+ DoggyStyleApp.getInstance().getCurrentPet().getPetId())
+        AndroidNetworking.put("http://doggystyle.vcsoft.pe/api/petadoption/0")
                 .addJSONObjectBody(jsonObject) // posting json
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)

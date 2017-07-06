@@ -38,7 +38,7 @@ public class MyPetsAdapter extends RecyclerView.Adapter<MyPetsAdapter.ViewHolder
     public void onBindViewHolder(final MyPetsAdapter.ViewHolder holder, final int position) {
         PetEntry petEntry = getPetEntries().get(position);
         holder.petNameTextView.setText(petEntries.get(position).getNamePet());
-        holder.petAgeTextView.setText(String.valueOf(petEntries.get(position).getAge()) );
+        holder.petAgeTextView.setText(""+petEntries.get(position).getAge());
         holder.petDescriptionTextView.setText(petEntries.get(position).getDescription());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

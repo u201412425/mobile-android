@@ -3,16 +3,12 @@
 
     <item
         android:id="@+id/navigation_pets"
-        android:icon="@drawable/ic_loyalty_black_24dp"
+        android:icon="@drawable/ic_pets_black_24dp"
         android:title="Mascotas" />
 
     <item
         android:id="@+id/navigation_give"
-        android:icon="@drawable/ic_pets_black_24dp"
+        android:icon="@drawable/ic_loyalty_black_24dp"
         android:title="Solicitudes de adopción" />
 
-    <item
-        android:id="@+id/navigation_get"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Solicitudes de adopción" />
 </menu>

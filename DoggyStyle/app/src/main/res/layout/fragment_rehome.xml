@@ -42,9 +42,10 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/namePetTextInputEditText"
+                android:id="@+id/namePetTextView"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/descriptionRehomeTextInputLayout"
@@ -54,14 +55,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/namePetTextInputEditText"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp">
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/nameTextInputEditText"
+                android:id="@+id/descriptionTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="¿Por qué deseas dar en adopción a tu perro?"
+                android:hint="¿Por qué deseas dar en adopción a tu mascota?"
                 android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -72,7 +73,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="Rehome"
+            android:text="ReHome"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

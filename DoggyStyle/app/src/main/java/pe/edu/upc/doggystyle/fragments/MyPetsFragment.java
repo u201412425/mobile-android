@@ -137,7 +137,10 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
             mListener.onMyPetsFragmentInteraction(1);
         }
     }
-
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onMyPetsFragmentInteraction(int index);
+    }
     @Override
     public void onEntryClick(int index) {
         mListener.onMyPetsFragmentInteraction(index);
@@ -149,10 +152,8 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
         updateData();
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onMyPetsFragmentInteraction(int index);
-    }
+
+
 
     private void updateData() {
         PetApi petApi = new PetApi();

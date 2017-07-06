@@ -83,11 +83,9 @@ public class PetEntry {
                     .setUserId(jsonPetEntry.getInt("UserId"))
                     .setNamePet(jsonPetEntry.getString("NamePet"))
                     .setDescription(jsonPetEntry.getString("Description"))
-                    .setNamePet(jsonPetEntry.getString("NamePet"))
                     .setState(jsonPetEntry.getString("State"))
                     .setType(jsonPetEntry.getInt("Type"))
                     .setSpecialFeatures(jsonPetEntry.getString("SpecialFeatures"))
-                    .setPetShelterId(jsonPetEntry.getString("PetShelterId"))
                     .setAge(jsonPetEntry.getInt("Age"))
                     .setImagenUrl(jsonPetEntry.getString("ImagenUrl"));
 
