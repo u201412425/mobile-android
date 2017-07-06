@@ -4,6 +4,7 @@ import android.app.Application;
 import com.androidnetworking.AndroidNetworking;
 
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.models.Session;
 import pe.edu.upc.doggystyle.models.Shelter;
 import pe.edu.upc.doggystyle.utilities.DataService;
 
@@ -31,11 +32,16 @@ public class DoggyStyleApp extends Application {
     public Shelter getCurrentShelter() {
         return getInstance().service.getCurrentShelter();
     }
+    public void setCurrentSession(Session session){
+        getInstance().service.setCurrentSession(session);
+    }
 
     public void setCurrentShelter(Shelter currentShelter){
         getInstance().service.setCurrentShelter(currentShelter);
     }
-
+    public Session getCurrentSession() {
+        return getInstance().service.getCurrentSession();
+    }
     @Override
     public void onCreate() {
         super.onCreate();

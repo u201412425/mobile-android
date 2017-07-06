@@ -24,6 +24,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.models.Session;
 import pe.edu.upc.doggystyle.network.LoginApi;
@@ -118,6 +119,8 @@ public class LoginActivity extends AppCompatActivity {
                             Toast toast = Toast.makeText(context,result.getString(Constants.Session.USERID), Toast.LENGTH_SHORT);
                             toast.show();
                             if(!session.getToken().equals("")){
+
+                                DoggyStyleApp.getInstance().setCurrentSession(session);
                                 if(session.getRol() == 1){
                                     Intent intent = new Intent(LoginActivity.this,MyPetsActivity.class);
                                     startActivity(intent);
@@ -126,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this,MyShelterActivity.class);
                                     startActivity(intent);
                                 }
-
                             }
 
                         }catch (JSONException e){

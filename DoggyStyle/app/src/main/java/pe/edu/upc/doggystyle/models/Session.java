@@ -6,8 +6,8 @@ package pe.edu.upc.doggystyle.models;
 
 public class Session {
     private String token;
-    private Integer id;
-    private Integer rol;
+    private int id;
+    private int rol;
     public  Session(){
 
     }
@@ -18,7 +18,7 @@ public class Session {
         this.rol = rol;
     }
 
-    public  Integer getRol()
+    public  int getRol()
     {
         return rol;
     }
@@ -35,7 +35,7 @@ public class Session {
         this.token = token;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

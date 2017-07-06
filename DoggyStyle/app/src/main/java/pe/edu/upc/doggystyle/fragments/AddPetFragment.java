@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.models.PetEntry;
 
@@ -69,7 +70,7 @@ public class AddPetFragment extends Fragment {
                 .setAge(Integer.valueOf(ageTextInputEditText.getText().toString()) )
                 .setSpecialFeatures(specialFeaturesTextInputEditText.getText().toString())
                 .setType(typeSpinner.getSelectedItem().toString())
-                .setUserId(3);
+                .setUserId(DoggyStyleApp.getInstance().getCurrentSession().getId());
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("UserId",Integer.valueOf( petEntry.getUserId()));

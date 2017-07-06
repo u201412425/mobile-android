@@ -83,20 +83,14 @@ public class RehomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rehome, container, false);
-        descriptionTextInputEditText=(TextInputEditText) view.findViewById(R.id.descriptionTextInputEditText);
-        Button reHomeButton = (Button) view.findViewById(R.id.reHomeButton);
-        buttonRehome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonPressed();
-            }
-        });
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        descriptionTextInputEditText=(TextInputEditText) view.findViewById(R.id.descriptionRehomeTextInputLayout);
         buttonRehome = (Button) view.findViewById(R.id.reHomeButton);
         buttonRehome.setOnClickListener(new View.OnClickListener() {
             @Override

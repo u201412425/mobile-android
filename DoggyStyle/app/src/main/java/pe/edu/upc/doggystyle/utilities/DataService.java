@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.models.Session;
 import pe.edu.upc.doggystyle.models.Shelter;
 
 /**
@@ -14,6 +15,7 @@ public class DataService {
     static DataService dataService;
 
     private Shelter CurrentShelter;
+    private Session currentSession;
     private PetEntry currentPet;
     private PetEntry currentPetAdopt;
     private List<PetEntry> adoptEntries;
@@ -21,6 +23,7 @@ public class DataService {
     private List<Shelter> shelterEntries;
 
     public DataService(){
+        currentSession = new Session();
         currentPet = new PetEntry();
         currentPetAdopt = new PetEntry();
         adoptEntries= new ArrayList<>();
@@ -83,5 +86,14 @@ public class DataService {
 
     public void setCurrentShelter(Shelter CurrentShelter) {
         this.CurrentShelter = CurrentShelter;
+    }
+
+
+    public void setCurrentSession(Session session) {
+        this.currentSession = session;
+    }
+
+    public Session getCurrentSession() {
+        return currentSession;
     }
 }

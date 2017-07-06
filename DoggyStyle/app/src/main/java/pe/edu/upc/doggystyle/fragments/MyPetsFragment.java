@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.adapters.MyPetsAdapter;
 import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
@@ -155,7 +156,7 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
 
     private void updateData() {
         PetApi petApi = new PetApi();
-        int userId = 3;
+        int userId = DoggyStyleApp.getInstance().getCurrentSession().getId();
         AndroidNetworking.get(petApi.getURL(userId))
                 .setTag(TAG)
                 .setPriority(Priority.LOW)
