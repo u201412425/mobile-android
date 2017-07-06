@@ -17,7 +17,8 @@ import pe.edu.upc.doggystyle.R;
 import pe.edu.upc.doggystyle.fragments.*;
 
 public class MyShelterActivity extends AppCompatActivity
-    implements MyPetsShelterFragment.OnMyPetsShelterFragmentInteractionListener ,
+    implements MyPetsShelterFragment.OnMyPetsShelterFragmentInteractionListener,
+            AddPetFragment.OnAddPetFragmentInteractionListener,
             GivePetFragment.OnGivePetFragmentInteractionListener{
 
     Fragment fragment;
@@ -78,6 +79,12 @@ public class MyShelterActivity extends AppCompatActivity
             fragment = new PetDetailFragment();
         else
             fragment = new AddPetFragment();
+        addFragment();
+    }
+
+    @Override
+    public void OnAddPetFragmentInteractionListener() {
+        fragment = new MyPetsShelterFragment();
         addFragment();
     }
 }
