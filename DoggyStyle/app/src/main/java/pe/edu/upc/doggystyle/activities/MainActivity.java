@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Thread.sleep((Integer)params[1]);
                 startActivity(new Intent((Context)params[0], LoginActivity.class));
+                finish();
             } catch (InterruptedException e){
                 System.out.println(e);
             }

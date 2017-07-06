@@ -133,6 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(context, "El usuario ha sido creado", Toast.LENGTH_SHORT);
                         toast.show();
                         startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                        finish();
                     }
                     @Override
                     public void onError(ANError error) {

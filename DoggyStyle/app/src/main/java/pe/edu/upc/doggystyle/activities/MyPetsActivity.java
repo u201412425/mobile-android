@@ -68,9 +68,8 @@ public class MyPetsActivity extends AppCompatActivity
 
         fragmentManager = getSupportFragmentManager();
         fragment = new AdoptFragment();
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, fragment).commit();
-        
+        addFragment();
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

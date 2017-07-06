@@ -152,9 +152,6 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
         updateData();
     }
 
-
-
-
     private void updateData() {
         PetApi petApi = new PetApi();
         int userId = DoggyStyleApp.getInstance().getCurrentSession().getId();
@@ -178,6 +175,5 @@ public class MyPetsFragment extends Fragment implements OnEntryClickListener {
                         Log.d(TAG, anError.getLocalizedMessage());
                     }
                 });
-
     }
 }

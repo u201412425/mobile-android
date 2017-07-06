@@ -3,12 +3,33 @@ package pe.edu.upc.doggystyle.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
+import pe.edu.upc.doggystyle.DoggyStyleApp;
 import pe.edu.upc.doggystyle.R;
+import pe.edu.upc.doggystyle.adapters.MyPetsAdapter;
+import pe.edu.upc.doggystyle.interfaces.OnEntryClickListener;
+import pe.edu.upc.doggystyle.models.PetEntry;
+import pe.edu.upc.doggystyle.network.PetApi;
+import pe.edu.upc.doggystyle.utilities.DataService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,11 +39,17 @@ import pe.edu.upc.doggystyle.R;
  * Use the {@link MyPetsShelterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyPetsShelterFragment extends Fragment {
+public class MyPetsShelterFragment extends Fragment implements OnEntryClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static String TAG = "FindAppet";
+
+    RecyclerView recyclerView;
+    MyPetsAdapter myPetsAdapter;
+
+    List<PetEntry> petEntries;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,10 +96,28 @@ public class MyPetsShelterFragment extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed() {
         if (mListener != null) {
-            mListener.OnMyPetsShelterFragmentInteractionListener(uri);
+            mListener.OnMyPetsShelterFragmentInteractionListener(1);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        myPetsAdapter = new MyPetsAdapter(getContext(), DataService.getInstance().getMyPetsEntries(), this);
+        recyclerView = (RecyclerView)view.findViewById(R.id.myPetsShelterRecyclerView);
+        recyclerView.setAdapter(myPetsAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addPetFloatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onButtonPressed();
+            }
+        });
     }
 
     @Override
@@ -87,9 +132,45 @@ public class MyPetsShelterFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateData();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onEntryClick(int index) {
+        mListener.OnMyPetsShelterFragmentInteractionListener(index);
+    }
+
+    private void updateData() {
+        PetApi petApi = new PetApi();
+        int userId = DoggyStyleApp.getInstance().getCurrentSession().getId();
+        AndroidNetworking.get(petApi.getURL(userId))
+                .setTag(TAG)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            petEntries = PetEntry.build(response.getJSONArray("Result"));
+                            myPetsAdapter.setPetEntries(petEntries).notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.d(TAG, anError.getLocalizedMessage());
+                    }
+                });
     }
 
     /**
@@ -104,6 +185,6 @@ public class MyPetsShelterFragment extends Fragment {
      */
     public interface OnMyPetsShelterFragmentInteractionListener {
         // TODO: Update argument type and name
-        void OnMyPetsShelterFragmentInteractionListener(Uri uri);
+        void OnMyPetsShelterFragmentInteractionListener(int index);
     }
 }
